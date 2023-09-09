@@ -2,7 +2,7 @@ package com.mjc.stage2.parser;
 
 import com.mjc.stage2.entity.AbstractTextComponent;
 
-public abstract class AbstractTextParser {
+public abstract class AbstractTextParser extends ChainParserBuilder{
     protected AbstractTextParser nextParser;
 
     public AbstractTextParser() {
