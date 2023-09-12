@@ -1,11 +1,19 @@
 package com.mjc.stage2.entity;
 
-public class Rectangle {
+import com.mjc.stage2.Observable;
+import com.mjc.stage2.Observer;
+import com.mjc.stage2.event.RectangleEvent;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Rectangle implements Observable {
     private int id;
     private double sideA;
     private double sideB;
 
     // Write your code here!
+    List<Observer> observers = new ArrayList<>();
     public Rectangle(int id, double sideA, double sideB) {
         this.id = id;
         this.sideA = sideA;
@@ -36,6 +44,22 @@ public class Rectangle {
     public void setSideB(double sideB) {
         this.sideB = sideB;
         // Write your code here!
+    }
+
+    @Override
+    public void addObserver(Observer o) {
+        observers.add(o);
+    }
+
+    @Override
+    public void removeObserver(Observer o) {
+        observers.remove(o);
+    }
+
+    @Override
+    public void notifyObserver() {
+        RectangleEvent event = new RectangleEvent(this);
+        observers.stream().forEach(observer -> observer.handleEvent(event));
     }
 // Write your code here!
 }
