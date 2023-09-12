@@ -10,17 +10,16 @@ import com.mjc.stage2.warehouse.RectangleWarehouse;
 public class RectangleObserver implements Observer {
     @Override
     public void handleEvent(RectangleEvent event) {
-        RectangleRepository repository = RectangleRepository.getInstance();
         Rectangle rectangle = event.getSource();
         int id = rectangle.getId();
         double sideA = rectangle.getSideA();
         double sideB = rectangle.getSideB();
         double square = sideA * sideB;
         double perimeter = 2 * (sideA + sideB);
-        RectangleValues values = new RectangleValues(square, perimeter);
+        RectangleValues old = RectangleWarehouse.getInstance().get(id);
+        RectangleWarehouse.getInstance().remove(id, old);
+        RectangleValues newValues = new RectangleValues(square, perimeter);
         RectangleWarehouse warehouse = RectangleWarehouse.getInstance();
-        warehouse.remove(id,warehouse.get(id));
-        warehouse.put(id, values);
-        repository.add(rectangle);
+        warehouse.put(id, newValues);
     }
 }
