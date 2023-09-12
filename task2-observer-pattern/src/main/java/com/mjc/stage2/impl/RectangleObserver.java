@@ -17,9 +17,12 @@ public class RectangleObserver implements Observer {
         double square = sideA * sideB;
         double perimeter = 2 * (sideA + sideB);
         RectangleValues old = RectangleWarehouse.getInstance().get(id);
+
         RectangleWarehouse.getInstance().remove(id, old);
         RectangleValues newValues = new RectangleValues(square, perimeter);
         RectangleWarehouse warehouse = RectangleWarehouse.getInstance();
+        warehouse.get(id).setSquare(square);
+        warehouse.get(id).setPerimeter(perimeter);
         warehouse.put(id, newValues);
     }
 }
